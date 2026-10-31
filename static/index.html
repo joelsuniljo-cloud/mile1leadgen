@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lead Radar · Mile 1</title>
+  <link rel="icon" type="image/svg+xml" href="/static/img/icon_blue_bg.svg">
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap">
+  <link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+  <div class="shell">
+    <aside class="side">
+      <img class="logo" src="/static/img/logo_horizontal_transparent_light.svg" alt="Mile 1 — Start Right" width="248" height="52">
+      <div class="side-head">
+        <span class="label">Searches</span>
+        <button class="btn btn-accent btn-sm" id="newBtn">+ New</button>
+      </div>
+      <nav id="searches" class="searches" aria-label="Searches"></nav>
+      <div class="side-foot">
+        <div id="sourceStatus" class="small muted"></div>
+        <a class="small link-light" href="mailto:hello@mile1.in">hello@mile1.in</a>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="top">
+        <div>
+          <span class="label chip">Lead Radar</span>
+          <h1 id="title">All leads</h1>
+          <p class="muted" id="subtitle"></p>
+        </div>
+        <div class="top-actions">
+          <button class="btn btn-ghost" id="runBtn">Scan now</button>
+          <a class="btn btn-ghost" id="csvBtn" href="/api/leads.csv">Export CSV</a>
+        </div>
+      </header>
+
+      <div id="banner" class="banner" hidden></div>
+
+      <section class="stats" id="stats"></section>
+
+      <section class="filters">
+        <input id="q" type="search" placeholder="Filter by text or author" aria-label="Filter leads">
+        <select id="source" aria-label="Source">
+          <option value="">All sources</option>
+          <option value="linkedin">LinkedIn</option>
+          <option value="reddit">Reddit</option>
+          <option value="hackernews">Hacker News</option>
+          <option value="web">Web</option>
+        </select>
+        <select id="minScore" aria-label="Minimum score">
+          <option value="0">Any score</option>
+          <option value="60" selected>60+</option>
+          <option value="80">80+ hot only</option>
+        </select>
+        <select id="status" aria-label="Status">
+          <option value="">Active</option>
+          <option value="new">New</option>
+          <option value="saved">Saved</option>
+          <option value="contacted">Contacted</option>
+          <option value="dismissed">Dismissed</option>
+        </select>
+        <span class="live small muted"><i class="dot"></i><span id="liveText">Live</span></span>
+      </section>
+
+      <section id="feed" class="feed" aria-live="polite"></section>
+    </main>
+  </div>
+
+  <dialog id="dlg">
+    <form method="dialog" id="form">
+      <h2>New search</h2>
+      <p class="muted">Describe who you want to find and what you sell. We expand the phrase and score every post for real buying intent.</p>
+      <label>Name<input name="name" required maxlength="120" placeholder="Digital marketing agencies"></label>
+      <label>What are people saying?<input name="query" required minlength="3" maxlength="300" placeholder="looking for digital marketing agency"></label>
+      <label><span>What do you sell? <span class="muted">(helps the AI judge fit)</span></span>
+        <textarea name="offering" rows="3" maxlength="1500" placeholder="Performance marketing and SEO for D2C and SaaS brands, India + global"></textarea>
+      </label>
+      <fieldset>
+        <legend class="label">Sources</legend>
+        <div id="srcBoxes" class="src-boxes"></div>
+      </fieldset>
+      <div class="dlg-actions">
+        <button class="btn btn-ghost" value="cancel" formnovalidate>Cancel</button>
+        <button class="btn btn-accent" id="createBtn" value="ok">Create &amp; scan</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" hidden></div>
+  <script src="/static/app.js"></script>
+</body>
+</html>
